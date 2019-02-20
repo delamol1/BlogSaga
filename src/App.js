@@ -1,10 +1,13 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
+import React, { Component, Fragment } from "react";
+
 import "./App.css";
 import { Provider } from "react-redux";
 import configureStore from "./store";
-
-import CounterComponent from "./components/counter";
+import Blog from "./components/Blog.container";
+import PostDetail from "./components/PostDetail.container";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { routes } from "./routes";
+import BlogEdit from "./components/BlogEdit";
 
 const store = configureStore();
 
@@ -12,24 +15,18 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to CRA-REDUX-SAGA-TEMPLATE</h1>
-          </header>
-          <p className="App-intro">
-            Try the 1 second delayed counter below. All powererd by
-            <b> Create-React-App, Redux, Redux-Saga</b>
-          </p>
-          <p>
-            Try clicking the Button below with the Redux Chrome Extension
-            Installed
-          </p>
-          <CounterComponent />
-        </div>
+        <Fragment>
+          {/* <Blog /> */}
+          <Switch>
+            <Route path={routes.blog} component={Blog} />
+            <Route path={routes.post_detail} component={PostDetail} />
+            <Route path={routes.edit} component={BlogEdit} />
+            <Redirect to={routes.root} />
+          </Switch>
+        </Fragment>
       </Provider>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

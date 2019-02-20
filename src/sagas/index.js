@@ -1,7 +1,7 @@
-import { watchCounter } from "./counter";
 import { all } from "redux-saga/effects";
+import { postWatcher } from "../components/Blog.saga";
 
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
-  yield all([watchCounter() /*, another saga here*/]);
+  yield all([postWatcher()]);
 }
